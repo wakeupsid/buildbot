@@ -101,7 +101,7 @@ class MasterConfig(object):
         self.user_managers = []
         self.revlink = default_revlink_matcher
         self.www = dict(
-            port=None,
+            port=8080,
             url='http://localhost:8080/',
             public_html=None,
         )

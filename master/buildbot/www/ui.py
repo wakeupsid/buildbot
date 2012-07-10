@@ -22,60 +22,41 @@ html = """\
 <html>
     <head>
         <title></title>
-        <link rel="stylesheet" type="text/css"
-              href="%(baseurl)sstatic/css/default.css" />
-        <script src="http://code.jquery.com/jquery-1.7.2.min.js" />
-        <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js" />
-        <script type="text/javascript">
-            bb.baseurl = "%(baseurl)s";
-        </script>
-        <script type="text/javascript">
-$(function() {
-    var ws_url = "%(baseurl)s".replace(/^http:/, "ws:");
-    console.log(ws_url);
-    var ws = new WebSocket(ws_url + "ws");
-    ws.onopen = function() {
-      console.log("onopen");
-      $('#status').text('open');
-      // this must be delaeyed at least until after the onopen has returned, or
-      // on firefox the message isn't sent until it gets flushed.  WebSockets
-      // are still fresh and exciting, eh?
-      window.setTimeout(function() {
-        ws.send(JSON.stringify({req: 'startConsuming',
-                              path: [ 'change' ],
-                              options: {}}));
-        $('#status').text('subscribed');
-      }, 0);
-    };
-    ws.onmessage = function (e) {
-      console.log("onmessage", e.data);
-      $('#message').text(e.data);
-    };
-    ws.onerror = function (e) {
-      console.log("onmessage", e);
-      $('#info').text(e.data);
-    };
-    ws.onclose = function() {
-      console.log("onclose");
-      $('#status').text('closed');
-    };
-});
+        <link rel="stylesheet" type="text/css" href="%(baseurl)sstatic/css/default.css" />
+        <link rel="stylesheet" type="text/css" href="%(baseurl)sstatic/css/bootstrap.css" />
+        <script src="static/js/default/dojo/dojo.js" data-dojo-config="async: true"></script>
+        <script src="static/js/buildbot.js" data-dojo-config="async: true"></script>
+        <script>
+          var ws_url = "%(baseurl)s".replace(/^http:/, "ws:");
         </script>
     </head>
-  <body class="interface">
+  <body>
+    <div class="container">
+      <div id="header" class="row-fluid">
+        <div id="changes_slider" class="span2 slider">Changes</div>
+        <div id="builders_slider" class="span2 slider">Builders</div>
+        <div  id="buildslaves_slider" class="span2 slider">Buildslaves</div>
+        <div id="masters_slider" class="span2 slider">Masters</div>
+      </div>
+      <br/>
 
-    <div id="header" class="header">
-    </div>
-    <hr />
-    <div id="content" class="content">
-        MESSAGE:
+      <div id="contents">
+        <div id="changes">
+          <div id="grid"></div>
+          <button id="changesButton">Load More Changes</button><br />
+        </div>
+        <div id="builders">Builders Info</div>
+        <div id="buildslaves">Buildslaves Info</div>
+        <div id="masters">Masters Info</div>
+      </div>
+
+      <div>
         <div id="message"></div>
-        INFO:
         <div id="info"></div>
-        STATUS:
         <div id="status"></div>
+      </div>
     </div>
-    </body>
+  </body>
 </html>
 """
 
