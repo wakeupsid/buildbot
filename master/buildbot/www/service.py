@@ -79,10 +79,8 @@ class WWWService(config.ReconfigurableServiceMixin, service.MultiService):
             root = static.Data('placeholder', 'text/plain')
 
         # redirect the root to UI
-        root.putChild('', resource.RedirectResource(self.master, 'ui/'))
-
         # /ui
-        root.putChild('ui', ui.UIResource(self.master))
+        root.putChild('', ui.UIResource(self.master))
 
         # /api
         root.putChild('api', rest.RestRootResource(self.master))
