@@ -24,8 +24,8 @@ html = """\
         <title></title>
         <link rel="stylesheet" type="text/css" href="%(baseurl)sstatic/css/default.css" />
         <link rel="stylesheet" type="text/css" href="%(baseurl)sstatic/css/bootstrap.css" />
-        <script src="static/js/default/dojo/dojo.js" data-dojo-config="async: true"></script>
-        <script src="static/js/buildbot.js" data-dojo-config="async: true"></script>
+        <script src="/static/js/default/dojo/dojo.js" data-dojo-config="async: true"></script>
+        <script src="/static/js/buildbot.js" data-dojo-config="async: true"></script>
         <script>
           var ws_url = "%(baseurl)s".replace(/^http:/, "ws:");
         </script>
